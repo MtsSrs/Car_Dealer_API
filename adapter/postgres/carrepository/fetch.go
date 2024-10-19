@@ -2,6 +2,8 @@ package carrepository
 
 import (
 	"context"
+	"fmt"
+	"strings"
 
 	"github.com/booscaaa/go-paginate/paginate"
 	"github.com/mtssrs/car_dealer_API/core/domain"
@@ -21,9 +23,25 @@ func (repository repository) Fetch(pagination *dto.PaginationRequestParams) (*do
 		Desc(pagination.Descending).
 		Sort(pagination.Sort).
 		RowsPerPage(pagination.ItemsPerPage).
-		SearchBy(pagination.Search, "car_name", "car_manufacturer").
+		SearchBy(pagination.Search, "car_name").
+		GroupBy("car_id").
 		Select()
 
+	// // Corrigir a consulta principal
+	*query = strings.ReplaceAll(*query, "::TEXT", "")
+	*query = strings.ReplaceAll(*query, "((", "((car_name")
+	*query = strings.ReplaceAll(*query, ") or (", ") or (car_manufacturer")
+	*query = strings.ReplaceAll(*query, "GROUP BY car_id", "")
+
+	// // Corrigir a consulta de contagem
+	*queryCount = strings.ReplaceAll(*queryCount, "COUNT(id)", "COUNT(*)")
+	*queryCount = strings.ReplaceAll(*queryCount, "::TEXT", "")
+	*queryCount = strings.ReplaceAll(*queryCount, "((", "((car_name")
+	*queryCount = strings.ReplaceAll(*queryCount, ") or (", ") or (car_manufacturer")
+	*queryCount = strings.ReplaceAll(*queryCount, "GROUP BY car_id", "")
+
+	fmt.Println("Query corrigida:", *query)
+	fmt.Println("Count Query corrigida:", *queryCount)
 	{
 		rows, err := repository.db.Query(
 			ctx,
