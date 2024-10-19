@@ -3,6 +3,7 @@ module github.com/mtssrs/car_dealer_API
 go 1.23.2
 
 require (
+	github.com/booscaaa/go-paginate v0.0.12
 	github.com/golang-migrate/migrate/v4 v4.18.1
 	github.com/jackc/pgconn v1.14.3
 	github.com/jackc/pgx/v4 v4.18.3

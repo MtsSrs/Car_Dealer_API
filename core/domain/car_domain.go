@@ -7,11 +7,12 @@ import (
 )
 
 type Car struct {
-	CarId        int32   `json:"carId"`
-	CarName      string  `json:"carName"`
-	CarModel     string  `json:"carModel"`
-	CarYearModel string  `json:"carYearModel"`
-	CarPrice     float32 `json:"carPrice"`
+	CarId           int32   `json:"carId"`
+	CarManufacturer string  `json:"carManufacturer"`
+	CarName         string  `json:"carName"`
+	CarModel        string  `json:"carModel"`
+	CarYearModel    string  `json:"carYearModel"`
+	CarPrice        float32 `json:"carPrice"`
 }
 
 type CarService interface {
