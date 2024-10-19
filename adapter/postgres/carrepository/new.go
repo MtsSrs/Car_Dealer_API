@@ -1,4 +1,4 @@
-package productrepository
+package carrepository
 
 import (
 	"github.com/mtssrs/car_dealer_API/adapter/postgres"
